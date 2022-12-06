@@ -7,36 +7,20 @@ function parseInput(rawInput: string) {
 function part1(rawInput: string) {
   const input = parseInput(rawInput);
 
-  for (let i = 4; i < input.length; i++) {
-    const last4 = [input[i - 4], input[i - 3], input[i - 2], input[i - 1]];
-    if (new Set(last4).size === 4) {
-      return i;
-    }
-  }
+  return findMarker(input, 4);
 }
 
 function part2(rawInput: string) {
   const input = parseInput(rawInput);
 
-  for (let i = 14; i < input.length; i++) {
-    const last14 = [
-      input[i - 14],
-      input[i - 13],
-      input[i - 12],
-      input[i - 11],
-      input[i - 10],
-      input[i - 9],
-      input[i - 8],
-      input[i - 7],
-      input[i - 6],
-      input[i - 5],
-      input[i - 4],
-      input[i - 3],
-      input[i - 2],
-      input[i - 1],
-    ];
-    if (new Set(last14).size === 14) {
-      return i;
+  return findMarker(input, 14);
+}
+
+function findMarker(code: string, n: number) {
+  for (let i = 0; i < code.length - n; i++) {
+    const section = code.slice(i, i + n);
+    if (section.length === new Set(section).size) {
+      return i + n;
     }
   }
 }
